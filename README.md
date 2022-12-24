@@ -1,26 +1,28 @@
 # jpeg2png
 ## Silky smooth JPEG decoding - no more artifacts!
+
 JPEG encoding loses information. But it is JPEG decoding that introduces artifacts by filling the missing information with noise.
 
 jpeg2png is smarter and fills the missing information to create the smoothest possible picture.
 
-## [Examples](/../../tree/images)
+## [Examples](https://github.com/ImageProcessing-ElectronicPublications/jpeg2png-demo)
 
-![Lena](/../images/lena_tiles.png?raw=true)
+![Lena](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/lena_tiles.png)
 
-* Top left: [original](../images/lena.png) Lena image
+* Top left: [original](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/lena.png) Lena image
 * Top right: original, 64x64 detail
-* Bottom left: [JPEG encoded](../images/lena.jpg) at 10% quality with 4:2:0 chroma subsampling using the GIMP, 64x64 detail
-* Bottom right: [JPEG decoded](../images/lena_restored.png) with jpeg2png using the default settings, 64x64 detail
+* Bottom left: [JPEG encoded](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/lena.jpg) at 10% quality with 4:2:0 chroma subsampling using the GIMP, 64x64 detail
+* Bottom right: [JPEG decoded](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/lena_restored.png) with jpeg2png using the default settings, 64x64 detail
 
-![Hige](/../images/deviantart_tiles.png?raw=true)
+![Hige](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/deviantart_tiles.png?raw=true)
 
-* Top left: [original](../images/deviantart.png) Hige image ([source](http://whitedovehemlock.deviantart.com/art/Hige-315700935))
+* Top left: [original](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/mainimages/deviantart.png) Hige image ([source](http://whitedovehemlock.deviantart.com/art/Hige-315700935))
 * Top right: original, 64x64 detail
-* Bottom left: [JPEG encoded](../images/deviantart.jpg) at 90% quality with 4:4:4 chroma subsampling using the GIMP, 64x64 detail
-* Bottom right: [JPEG decoded](../images/deviantart_restored.png) with jpeg2png using the default settings, 64x64 detail
+* Bottom left: [JPEG encoded](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/deviantart.jpg) at 90% quality with 4:4:4 chroma subsampling using the GIMP, 64x64 detail
+* Bottom right: [JPEG decoded](https://raw.githubusercontent.com/ImageProcessing-ElectronicPublications/jpeg2png-demo/main/images/deviantart_restored.png) with jpeg2png using the default settings, 64x64 detail
 
 ## Installation
+
 A compiled Windows version is available on the ["Releases" page](../../releases).
 
 jpeg2png is written in portable C, specifically C11. It relies on libjpeg and libpng.
@@ -36,6 +38,7 @@ You may use ``./jpeg2png`` to execute it without installing, or install using
 jpeg2png is licensed GPLv3+.
 
 ## Usage
+
 Just execute ``jpeg2png picture.jpg`` to create ``picture.png``. Execute ``jpeg2png --help`` to see all options.
 
 Under Windows, you can also drag-and-drop JPEG files onto the program.
@@ -48,6 +51,7 @@ On the other hand, jpeg2png gives poor result for photographs or other finely te
 For pictures that have been reencoded to JPEG multiple times I recommend [shred](https://www.gnu.org/software/coreutils/manual/html_node/shred-invocation.html).
 
 ## What "smooth" means
+
 jpeg2png finds the smoothest possible picture that encodes to the given JPEG file.
 But what is "smooth"? A first approximation is [Total Variation](https://en.wikipedia.org/wiki/Total_variation_denoising).
 It says that smoothness is the sum of the differences between neighboring pixels.
@@ -72,6 +76,7 @@ To prevent this we also optimize for the minimal sum of squared deviations of DC
 jpeg2png lets you choose the weight for the sum of squared deviations with the ``-p`` parameter.
 
 ## Finding the smoothest picture
+
 Now we know what we are looking for. But how do we find it?
 It turns out this is a non-linear convex optimization problem.
 We use a method that gets to smoother decodings in steps.
@@ -86,6 +91,7 @@ A high number of steps, like 1000, might take a few minutes.
 The quality is very good, but such a high number is probably overkill.
 
 ## Nitty gritty
+
 JPEG encoding goes something like
 ``convert colors to YCbCr -> chroma subsampling -> blockwise DCT -> quantization -> rounding -> entropy coding``
 
