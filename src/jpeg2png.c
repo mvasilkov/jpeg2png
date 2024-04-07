@@ -113,7 +113,7 @@ noreturn static void usage() {
                 "--version\n"
                 "\tdisplay version information and exit\n"
                 );
-        exit(EXIT_FAILURE);
+        exit(EXIT_SUCCESS);
 }
 
 // decode a single JPEG file smoothly
@@ -197,7 +197,7 @@ int main(int argc, const char **argv) {
         // parse command line flags
         if(gopt(options, 'V')) {
                 printf("jpeg2png version "JPEG2PNG_VERSION" licensed GPLv3+\n");
-                exit(EXIT_FAILURE);
+                exit(EXIT_SUCCESS);
         }
         if(argc < 2 || gopt(options, 'h')) {
                 usage();
